@@ -1,0 +1,61 @@
+expression			  : KEY_WORD($) IDENTIFIER EQUAL(=) expression
+					  : comparison_expression ((KEY_WORD: AND|KEY_WORD: OR) comparison_expression)*
+
+comparison_expression : NOT comparison_expression
+					  :arithmatic_expression (
+							(EQUAL_EQUAL|LESS_THAN|GREATER_THAN|LESS_THAN_EQUAL|GREATER_THAN_EQUAL)
+						arithmatic_expression)*
+
+arithmatic_expression : term ((PLUS|MINUS) term)*
+
+term    			  : factor ((MUL|DIV) factor)*
+
+factor  			  : (PLUS|MINUS) factor
+
+power				  : atom (POWER factor)*
+
+atom 				  : INT|FLOAT|STRING|IDENTIFIER
+					  : LPAREN expression RPAREN
+					  : List_expression
+					  : IF_expression
+					  : FOR_expression
+					  : WHILE_expression
+
+
+List_expression		  : LSQUARE (expression (COMMA expression)* )? RSQUARE
+
+
+IF_expression		  : KEY_WORD:IF expression KEY_WORD:THEN expression
+					    (KEY_WORD: ELSEIF expression KEY_WORD: THEN expression)*
+						(KEY_WORD: ELSE expression)?
+
+
+FOR_expression		  : KEY_WORD: FOR IDENTIFIER EQUAL(=) expression KEY_WORD: TO expression
+						(KEY_WORD: STEP expression)? KEY_WORD: THEN expression
+
+WHILE_expression	  : KEY_WORD: WHILE expression KEY_WORD: THEN expression
+
+
+
+Varialble 			  : $	 		a	 		=	 		5
+						^			^			^			^
+						KEY_WORD	IDENTIFIER	EQUAL		expression
+
+If Condition 		  :	IF 			(5 == 5)		THEN 	 	12 			ELSE 		40
+						^				^			  ^			 ^			  ^			 ^
+						KEY_WORD	expression		KEY_WORD	expression	KEY_WORD	expression
+
+For Loop			  : FOR 		(i = 0) 		TO 		    10 			 THEN 		(result = result * i)
+						 ^	           ^			 ^			 ^			   ^				^
+						KEY_WORD	expression	  KEY_WORD   expression		KEY_WORD		expression
+						
+
+While Loop 			  : WHILE 		(1 > 1)			THEN 		15
+						  ^			   ^			  ^			 ^
+						KEY_WORD	expression		KEY_WORD	expression
+
+
+List				  : [1,2,3,4] + element => push element in the last of array 
+					  : [1,2,3,4] * array   => merge to array in the first array
+					  : [1,2,3,4] - index   => remove the element[index] in the array
+					  : [1,2,3,4] / index   => get the element[index] in the array
