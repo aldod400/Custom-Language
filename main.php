@@ -12,6 +12,7 @@ require_once 'src/Parser.php';
 require_once 'src/Position.php';
 require_once 'src/Strings.php';
 require_once 'src/SymbolTable.php';
+
 function clear_cmd()
 {
     echo "\033[H\033[J";
