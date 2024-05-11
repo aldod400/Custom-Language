@@ -1,3 +1,6 @@
 # Custom-Language
 
-## To run My Program only run the file "main.php"
+## Build and Run
+To build this language you should install the **PHP** language
+
+After that,you should run the file "main.php"
