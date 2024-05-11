@@ -1,4 +1,4 @@
-# Custom-Language
+# PhantomScript
 
 ## Build and Run
 To build this language you should install the **PHP** language
